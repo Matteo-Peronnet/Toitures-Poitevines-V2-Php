@@ -1,0 +1,139 @@
+{% extends "BackOfficeBundle:Layout:layout.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset("template/datatables.net-bs/css/dataTables.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") }}" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="{{ asset("template/pnotify/dist/pnotify.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/pnotify/dist/pnotify.buttons.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/pnotify/dist/pnotify.nonblock.css") }}" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+    <div class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    {% include "BackOfficeBundle:Layout:menu.html.twig" %}
+                </div>
+                <div class="top_nav">
+                    {% include "BackOfficeBundle:Layout:top-bar.html.twig" %}
+                </div>
+                <!-- page content -->
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div class="">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h3>Client</h3>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Ajouté un Client</h2>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                            </li>
+                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                            {{ form_start(form,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
+
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nom <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{ form_row(form.nom,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Prénom <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        {{ form_row(form.prenom,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ville <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        {{ form_row(form.ville,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Adresse <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        {{ form_row(form.adresse,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Téléphone <span class="required"></span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        {{ form_row(form.telephone,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Email <span class="required"></span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        {{ form_row(form.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-6 col-md-offset-3">
+                                                        {{ form_row(form.cancel,{ 'attr': {'class': 'btn btn-primary pull-left'} }) }}
+                                                        {{ form_row(form.save,{ 'attr': {'class': 'btn btn-success pull-right','onclick':"new PNotify({
+                                  title: 'Client Ajouté',
+                                  text: 'Vous allez être redirigé!',
+                                  type: 'success',
+                                  styling: 'bootstrap3'
+                              });"} }) }}
+                                                    </div>
+                                                </div>
+
+                                            {{ form_widget(form) }}
+                                            {{ form_end(form) }}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /Page Content -->
+
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- PNotify -->
+    <script src="{{ asset('template/pnotify/dist/pnotify.js') }}"></script>
+    <script src="{{ asset('template/pnotify/dist/pnotify.buttons.js') }}"></script>
+    <script src="{{ asset('template/pnotify/dist/pnotify.nonblock.js') }}"></script>
+
+
+{% endblock %}

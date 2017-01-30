@@ -1,0 +1,112 @@
+{% extends "BackOfficeBundle:Layout:layout.html.twig" %}
+{% block body %}
+    <body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+               {% include "BackOfficeBundle:Layout:menu.html.twig" %}
+            </div>
+            <div class="top_nav">
+                {% include "BackOfficeBundle:Layout:top-bar.html.twig" %}
+            </div>
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <!-- top tiles -->
+                <div class="row tile_count">
+                    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-edit"></i> Total Devis</span>
+                        <div class="count">2500</div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-users"></i> Nombre de clients</span>
+                        <div class="count">123</div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-info"></i> Dernier devis</span>
+                        <div class="count green">N°450</div>
+                    </div>
+                </div>
+                <!-- /top tiles -->
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Derniers Devis</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <article class="media event">
+                                    <a class="pull-left date">
+                                        <p class="month">April</p>
+                                        <p class="day">23</p>
+                                    </a>
+                                    <div class="media-body">
+                                        <a class="title" href="#">Item One Title</a>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </article>
+                                <article class="media event">
+                                    <a class="pull-left date">
+                                        <p class="month">April</p>
+                                        <p class="day">20</p>
+                                    </a>
+                                    <div class="media-body">
+                                        <a class="title" href="#">Item Two Title</a>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </article>
+                                <article class="media event">
+                                    <a class="pull-left date">
+                                        <p class="month">April</p>
+                                        <p class="day">13</p>
+                                    </a>
+                                    <div class="media-body">
+                                        <a class="title" href="#">Item Two Title</a>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </article>
+                                <article class="media event">
+                                    <a class="pull-left date">
+                                        <p class="month">April</p>
+                                        <p class="day">10</p>
+                                    </a>
+                                    <div class="media-body">
+                                        <a class="title" href="#">Item Two Title</a>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </article>
+                                <article class="media event">
+                                    <a class="pull-left date">
+                                        <p class="month">April</p>
+                                        <p class="day">5</p>
+                                    </a>
+                                    <div class="media-body">
+                                        <a class="title" href="#">Item Three Title</a>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+{% endblock %}

@@ -311,4 +311,9 @@ class Client
     {
         return $this->devis;
     }
+
+    public function getUniqueName()
+    {
+        return sprintf('%s %s', $this->nom, $this->prenom);
+    }
 }

@@ -23,8 +23,8 @@ class ClientType extends AbstractType
                 ->add('adresse',TextType::class,array('label' => false, 'required' => true))
                 ->add('telephone',TextType::class,array('label' => false, 'required' => false))
                 ->add('email',EmailType::class,array('label' => false, 'required' => false))
-                ->add('cancel',ResetType::class,array('label' => "Annuler"))
-                ->add('save',SubmitType::class,array('label' => "Ajouter"));
+                ->add('cancel',ResetType::class)
+                ->add('save',SubmitType::class);
     }
     
     /**

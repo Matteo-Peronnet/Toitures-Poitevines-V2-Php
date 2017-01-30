@@ -24,11 +24,11 @@
         <div class="menu_section">
             <h3>Menu</h3>
             <ul class="nav side-menu">
-                <li><a  href="{{ app.request.getBaseURL() }}"><i class="fa fa-laptop"></i> Accueil</a></li>
+                <li><a  href="{{ app.request.getBaseURL() }}/"><i class="fa fa-laptop"></i> Accueil</a></li>
 
                 <li><a><i class="fa fa-edit"></i> Devis <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">Créer un devis</a></li>
+                        <li><a href="{{ app.request.getBaseURL() }}/devis/new">Créer un devis</a></li>
                         <li><a href="#">Modifier un devis</a></li>
                         <li><a href="#">Envoyer un devis</a></li>
                     </ul>
@@ -41,8 +41,10 @@
                 </li>
                 <li><a><i class="fa fa-database"></i> Données <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#">Categorie</a></li>
-                        <li><a href="#">Produits</a></li>
+                        <li><a href="{{ app.request.getBaseURL() }}/categorie/new"><span class="fa fa-tags"></span> Crée une catégorie</a></li>
+                        <li><a href="{{ app.request.getBaseURL() }}/categorie"><span class="fa fa-tags"></span> Rechercher une catégorie</a></li>
+                        <li><a href="{{ app.request.getBaseURL() }}/produit/new"><span class="fa fa-cube"></span>Crée un produit</a></li>
+                        <li><a href="{{ app.request.getBaseURL() }}/produit/"><span class="fa fa-cube"></span>Rechercher un produit</a></li>
                     </ul>
                 </li>
                 <li><a  href="#"><i class="fa fa-wrench"></i> Parametres</a></li>

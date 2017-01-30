@@ -43,6 +43,22 @@ class Devis
     private $prixTTC;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="tva", type="float")
+     */
+    private $tva;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="information", type="text")
+     */
+    private $information;
+
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="chantier", type="string", length=255)
@@ -75,13 +91,6 @@ class Devis
      * @ORM\JoinColumn(name="entreprise_id", referencedColumnName="id", nullable=false)
      */
     private $entreprise;
-
-    /**
-     * @var SettingsDevis
-     * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\SettingsDevis", cascade={"persist"},inversedBy="devis")
-     * @ORM\JoinColumn(name="settingsDevis_id", referencedColumnName="id", nullable=false)
-     */
-    private $settingsDevis;
 
     /**
      * Get id
@@ -221,6 +230,38 @@ class Devis
     }
 
     /**
+     * @return text
+     */
+    public function getInformation()
+    {
+        return $this->information;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTva()
+    {
+        return $this->tva;
+    }
+
+    /**
+     * @param float $tva
+     */
+    public function setTva($tva)
+    {
+        $this->tva = $tva;
+    }
+
+    /**
+     * @param text $information
+     */
+    public function setInformation($information)
+    {
+        $this->information = $information;
+    }
+
+    /**
      * Add ligneDevi
      *
      * @param \BackOfficeBundle\Entity\LigneDevis $ligneDevi
@@ -300,29 +341,5 @@ class Devis
     public function getEntreprise()
     {
         return $this->entreprise;
-    }
-
-    /**
-     * Set settingsDevis
-     *
-     * @param \BackOfficeBundle\Entity\SettingsDevis $settingsDevis
-     *
-     * @return Devis
-     */
-    public function setSettingsDevis(\BackOfficeBundle\Entity\SettingsDevis $settingsDevis)
-    {
-        $this->settingsDevis = $settingsDevis;
-
-        return $this;
-    }
-
-    /**
-     * Get settingsDevis
-     *
-     * @return \BackOfficeBundle\Entity\SettingsDevis
-     */
-    public function getSettingsDevis()
-    {
-        return $this->settingsDevis;
     }
 }

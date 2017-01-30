@@ -43,6 +43,13 @@ class Client
     private $ville;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="codePostal", type="integer")
+     */
+    private $codePostal;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
@@ -246,6 +253,23 @@ class Client
     {
         return $this->email;
     }
+
+    /**
+     * @return int
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * @param int $codePostal
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+    }
+    
     /**
      * Constructor
      */

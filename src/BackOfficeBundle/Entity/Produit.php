@@ -37,9 +37,9 @@ class Produit
 
 
     /**
-     * @var integer
+     * @var float
      *
-     * @ORM\Column(name="prixHT", type="integer")
+     * @ORM\Column(name="prixHT", type="float")
      */
     private $prixHT;
 

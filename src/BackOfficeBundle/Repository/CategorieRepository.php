@@ -10,4 +10,9 @@ namespace BackOfficeBundle\Repository;
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getMaxPlacementCategorie(){
+        return $this->createQueryBuilder('c')
+            ->select('MAX(c.placement)')
+            ->getQuery()->getSingleResult();
+    }
 }

@@ -28,7 +28,7 @@
                     <div class="">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3>Client</h3>
+                                <h3>Données</h3>
                             </div>
 
                         </div>
@@ -38,7 +38,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel">
                                     <div class="x_title">
-                                        <h2>Ajouter un Client</h2>
+                                        <h2>Editer un Produit</h2>
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                             </li>
@@ -49,7 +49,13 @@
                                     </div>
                                     <div class="x_content">
                                             {{ form_start(form,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
-
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Catégorie <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{ form_row(form.categorie,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nom <span class="required">*</span>
                                                     </label>
@@ -58,45 +64,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Prénom <span class="required">*</span>
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Unité <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        {{ form_row(form.prenom,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    {{ form_row(form.unite,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
                                                     </div>
                                                 </div>
                                                 <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ville <span class="required">*</span>
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Prix HT <span class="required">*</span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        {{ form_row(form.ville,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Code Postal <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        {{ form_row(form.codePostal,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Adresse <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        {{ form_row(form.adresse,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Téléphone <span class="required"></span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        {{ form_row(form.telephone,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Email <span class="required"></span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        {{ form_row(form.email,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    {{ form_row(form.prixHT,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
                                                     </div>
                                                 </div>
                                                 <div class="ln_solid"></div>
@@ -104,11 +82,11 @@
                                                     <div class="col-md-6 col-md-offset-3">
                                                         {{ form_row(form.cancel,{ 'attr': {'class': 'btn btn-primary pull-left'},'label':'Annuler' }) }}
                                                         {{ form_row(form.save,{ 'attr': {'class': 'btn btn-success pull-right','onclick':"new PNotify({
-                                  title: 'Client Ajouté',
+                                  title: 'Produit ajouté',
                                   text: 'Vous allez être redirigé!',
                                   type: 'success',
                                   styling: 'bootstrap3'
-                              });"},'label':'Ajouter' }) }}
+                              });"},'label':'Modifier' }) }}
                                                     </div>
                                                 </div>
 

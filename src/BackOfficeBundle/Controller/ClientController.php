@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ClientController extends Controller
 {
@@ -78,7 +79,6 @@ class ClientController extends Controller
     {
         $form = $this->createDeleteForm($client);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($client);
@@ -100,16 +100,12 @@ class ClientController extends Controller
             ->setMethod('DELETE')
             ->getForm();
     }
-
     /**
      * @Route("/client/{id}/profile",name="client_profile")
      * @Method("GET")
      */
     public function profileAction(Request $request,Client $client)
     {
-
-
-
         return $this->render('BackOfficeBundle:Client:profileClient.html.twig',array(
             'client'=>$client,
         ));

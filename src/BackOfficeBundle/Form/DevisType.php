@@ -47,8 +47,7 @@ class DevisType extends AbstractType
                     'choice_label'=>'nom',
                     'label' => false,
                     'required' => true
-                ))
-                ->add('save',SubmitType::class);;
+                ));
     }
     /**
      * {@inheritdoc}

@@ -24,35 +24,35 @@ class Devis
     /**
      * @var int
      *
-     * @ORM\Column(name="numero", type="integer", unique=true)
+     * @ORM\Column(name="numero", type="integer", unique=true, nullable=true)
      */
     private $numero;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="prixHT", type="float")
+     * @ORM\Column(name="prixHT", type="float", nullable=true)
      */
-    private $prixHT;
+    private $prixHT =0;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="prixTTC", type="float")
+     * @ORM\Column(name="prixTTC", type="float", nullable=true)
      */
-    private $prixTTC;
+    private $prixTTC =0;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="tva", type="float")
+     * @ORM\Column(name="tva", type="float", nullable=true)
      */
     private $tva;
 
     /**
      * @var text
      *
-     * @ORM\Column(name="information", type="text")
+     * @ORM\Column(name="information", type="text", nullable=true)
      */
     private $information;
 
@@ -61,16 +61,23 @@ class Devis
     /**
      * @var string
      *
-     * @ORM\Column(name="chantier", type="string", length=255)
+     * @ORM\Column(name="chantier", type="string", length=255, nullable=true)
      */
     private $chantier;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Date", type="datetime")
+     * @ORM\Column(name="Date", type="datetime", nullable=true)
      */
     private $date;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="brouillon", type="boolean", nullable=true)
+     */
+    private $brouillon;
 
     /**
      * @var LigneDevis
@@ -88,7 +95,7 @@ class Devis
     /**
      * @var Entreprise
      * @ORM\ManyToOne(targetEntity="BackOfficeBundle\Entity\Entreprise", cascade={"persist"},inversedBy="devis")
-     * @ORM\JoinColumn(name="entreprise_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="entreprise_id", referencedColumnName="id", nullable=true)
      */
     private $entreprise;
 
@@ -341,5 +348,21 @@ class Devis
     public function getEntreprise()
     {
         return $this->entreprise;
+    }
+
+    /**
+     * @param boolean $brouillon
+     */
+    public function setBrouillon($brouillon)
+    {
+        $this->brouillon = $brouillon;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBrouillon()
+    {
+        return $this->brouillon;
     }
 }

@@ -92,7 +92,7 @@
                       </ul>
                       <div id="step-1">
                       <h2 class="StepTitle">Paramètre client</h2>
-                        {{ form_start(form_devis,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
+                        {{ form_start(form_devis,{ 'attr': {'class': 'form-horizontal form-label-left','id':'form-id-'~devis.id} }) }}
                            <div class="item form-group">
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Entreprise <span class="required">*</span>
                                </label>
@@ -111,7 +111,7 @@
                       </div>
                       <div id="step-2">
                       <h2 class="StepTitle">Paramètre du Devis</h2>
-                      <form class="form-horizontal form-label-left">
+                      <form class="form-horizontal form-label-left"">
                            <div class="item form-group">
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">TVA <span class="required">*</span>
                                </label>
@@ -139,6 +139,7 @@
                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     {{ form_row(form_devis.date,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
                                </div>
+
                            </div>
                            <div class="item form-group">
                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Information <span class="required">*</span>
@@ -148,16 +149,115 @@
                                </div>
                            </div>
                       </div>
+                      </form>
                       <div id="step-3">
+
+
                         <h2 class="StepTitle">Contenu Devis</h2>
-                        <p>
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                          eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                            <div class="row">
+                            <div class="col-md-9 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Ajouter un Produit au devis</h2>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                            </li>
+                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                            {{ form_start(form_ligne_devis,{'attr': {'class': 'form-horizontal form-label-left ','id': 'form_LigneDevis'}}) }}
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Catégorie <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{ form_row(form_ligne_devis.categorie,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nom <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{ form_row(form_ligne_devis.produit,{  'id': 'form_LigneDevis-produit','attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Quantité <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    {{ form_row(form_ligne_devis.quantite,{  'id': 'form_LigneDevis-quantite','attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                                    </div>
+                                                </div>
+                                                <div class="ln_solid"></div>
+                                                <div class="form-group">
+                                                    <div class="col-md-6 col-md-offset-3">
+                                                       <input id="form_LigneDevis-submit" type="submit" value="Ajouter" class="btn btn-success pull-right" />
+                                                  </div>
+                                                </div>
+
+                                            {{ form_widget(form_ligne_devis) }}
+                                            {{ form_end(form_ligne_devis) }}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_content">
+                                        <table id="datatable table-insert-ligneDevis" class="table table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Catégorie</th>
+                                                <th>Produit</th>
+                                                <th>Quantité</th>
+                                                <th>Prix HT</th>
+                                                <th>PVT HT</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                              {% for ligneDevis in devis.ligneDevis %}
+                                                <tr>
+                                                    <td>{{ ligneDevis.produit.categorie.nom }}</td>
+                                                    <td>{{ ligneDevis.produit.nom }}</td>
+                                                    <td>{{ ligneDevis.quantite }}</td>
+                                                    <td>{{ ligneDevis.produit.prixHT }}</td>
+                                                    <td>{{ ligneDevis.pvtHT }}</td>
+                                                    {{ form_start(delete_forms[ligneDevis.id], {attr: {style: 'display:inline','onclick': 'return confirm("Es-tu sur de vouloir supprimer la catégorie ?")'}}) }}
+                                                        <button class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button>
+                                                    {{ form_end(delete_forms[ligneDevis.id]) }}
+                                                </tr>
+                                               {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-xs-offset-6">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <th style="width:50%">Total HT :</th>
+                                  <td id="prix-ht">{{ devis.prixHT }}€</td>
+                                </tr>
+                                <tr>
+                                  <th>TVA {{ devis.tva }}</th>
+                                  <td>0€</td>
+                                </tr>
+                                <tr>
+                                  <th>Total TTC:</th>
+                                  <td id="prix-ttc">{{ devis.prixTTC }}€</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        </div>
                       </div>
                       <div id="step-4">
                         <h2 class="StepTitle">Step 4 Content</h2>
@@ -205,6 +305,62 @@
     <script src="{{ asset('template/pnotify/dist/pnotify.buttons.js') }}"></script>
     <script src="{{ asset('template/pnotify/dist/pnotify.nonblock.js') }}"></script>
     <script src="{{ asset('template/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
+        <script type="text/javascript">
+    $(document).ready(function(){
+            $("#form_LigneDevis").submit(function(event) {
+                event.preventDefault();
+                //form-id-
+                var iddevis = $('[id^="form-id-"]');
 
+                iddevis = iddevis.attr('id');
+                iddevis = iddevis.replace("form-id-", "");
 
+                var idproduit = document.getElementById("form_LigneDevis-produit").value;
+                var quantite = document.getElementById("form_LigneDevis-quantite").value;
+
+                ///var table = $("#table-insert-ligneDevis");
+                var table = document.getElementById("datatable table-insert-ligneDevis");
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('devis_ligne_new') }}",
+                    data: {idproduit: idproduit, quantite: quantite, iddevis: iddevis},
+                    success: function (datas) {
+                        while(table.rows.length > 1) {
+                          table.deleteRow(1);
+                        }
+                        datas.forEach(function (e,index) {
+                            if(index==0){
+                                document.getElementById("prix-ht").innerHTML = e.totalHT+'€';
+                                document.getElementById("prix-ttc").innerHTML = e.totalTTC+'€';
+                            }
+                            var row = table.insertRow();
+                            var cell1 = row.insertCell(0);
+                            cell1.innerHTML = e.categorie;
+
+                            var cell2 = row.insertCell(1);
+                            cell2.innerHTML = e.produit;
+
+                            var cell3 = row.insertCell(2);
+                            cell3.innerHTML = e.quantite;
+
+                            var cell4 = row.insertCell(3);
+                            cell4.innerHTML = e.prixHT+'€';
+
+                            var cell5 = row.insertCell(4);
+                            cell5.innerHTML = e.pvtHT+'€';
+
+                            var cell6 = row.insertCell(5);
+                            cell6.innerHTML = "TEST";
+                        });
+                    },
+                    error: function(xhr, error){
+                    console.debug(xhr);
+                    console.debug(error);
+                    }
+                })
+            });
+
+    });
+    </script>
 {% endblock %}

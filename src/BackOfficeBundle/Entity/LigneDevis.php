@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ligne_devis")
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\LigneDevisRepository")
  */
-class LigneDevis
+class LigneDevis implements \JsonSerializable
 {
     /**
      * @var int
@@ -155,4 +155,26 @@ class LigneDevis
     {
         return $this->devis;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'categorie'=>$this->produit->getCategorie()->getNom(),
+            'produit' => $this->produit->getNom(),
+            'prixHT' => $this->produit->getPrixHT(),
+            'quantite'=> $this->quantite,
+            'pvtHT'=>$this->pvtHT,
+            'totalHT'=>$this->getDevis()->getPrixHT(),
+            'totalTTC'=>$this->getDevis()->getPrixTTC()
+        );
+    }
+
 }

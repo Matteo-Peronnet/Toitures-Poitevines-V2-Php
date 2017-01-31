@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use \BackOfficeBundle\Form\Listener\ListenerProduit;
 
 class LigneDevisType extends AbstractType
 {
@@ -24,12 +25,13 @@ class LigneDevisType extends AbstractType
                 'mapped' => false
             ))
                 ->add('quantite',NumberType::class,array('label' => false, 'required' => true))
-                ->add('produit',EntityType::class,array(
+                ->addEventSubscriber(new ListenerProduit());
+                /*->add('produit',EntityType::class,array(
                     'class'=>"BackOfficeBundle:Produit",
                     'choice_label'=>'nom',
                     'label' => false,
                     'required' => true
-                ));
+                ));*/
     }
     
     /**

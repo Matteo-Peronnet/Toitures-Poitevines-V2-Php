@@ -361,6 +361,24 @@
                 })
             });
 
+           var $categorie = $("#{{ form_ligne_devis.categorie.vars.id }}");
+           var $produit = $("#form_LigneDevis-produit");
+           $categorie.on("change", function (evt) {
+                var data = {};
+                data["categorie_id"] = $categorie.val();
+                $.ajax({
+                    url: "{{ path('api_get_produit') }}",
+                    type: "POST",
+                    data: data,
+                    success: function (datas) {
+                        $produit.find('option').remove();
+                        datas.forEach(function (e) {
+                            var o = $("<option/>", {text: e.nom, value: e.id});
+                            o.appendTo($produit);
+                        });
+                    }
+                });
+            });
     });
     </script>
 {% endblock %}

@@ -84,4 +84,15 @@ class DevisController extends Controller
             return new Response('This is not ajax!', 400);
         }
     }
+
+    /**
+     * @Route("/api/produit", name="api_get_produit")
+     * @Method({"GET", "POST"})
+     */
+    public function getProduitAction(Request $request)
+    {
+        $categorie = $this->getDoctrine()->getRepository("BackOfficeBundle:Categorie")->find((int)$request->request->get("categorie_id"));
+        $produit = $categorie->getProduit()->toArray();
+        return new JsonResponse($produit);
+    }
 }

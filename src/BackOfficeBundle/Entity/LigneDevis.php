@@ -173,7 +173,10 @@ class LigneDevis implements \JsonSerializable
             'quantite'=> $this->quantite,
             'pvtHT'=>$this->pvtHT,
             'totalHT'=>$this->getDevis()->getPrixHT(),
-            'totalTTC'=>$this->getDevis()->getPrixTTC()
+            'tva'=>$this->getDevis()->getTva(),
+            'totalTTC'=>$this->getDevis()->getPrixTTC(),
+            'prixTVA'=>$this->getDevis()->getPrixHT()*$this->getDevis()->getTva()/100,
+            'id'=>$this->id
         );
     }
 

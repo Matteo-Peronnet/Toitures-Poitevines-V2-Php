@@ -34,14 +34,13 @@ class DevisController extends Controller
         $form_devis = $this->createForm(DevisType::class,$devis);
         $form_devis->handleRequest($request);
         if($form_devis->isSubmitted()&& $form_devis->isValid()) {
-            $em->persist($devis);
-            $em->flush();
+            //$em->persist($devis);
+            //$em->flush();
             //return $this->redirectToRoute('');
         }
 
         // CREATION LIGNE DEVIS
         $form_ligne_devis = $this->createForm(LigneDevisType::class);
-
 
         return $this->render('BackOfficeBundle:Devis:newDevis.html.twig',array(
             'devis'=>$devis,
@@ -62,6 +61,7 @@ class DevisController extends Controller
             $idproduit = $request->request->get('idproduit');
             $quantite = $request->request->get('quantite');
             $iddevis = $request->request->get('iddevis');
+            $tva = $request->request->get('tva');
 
             $produit = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:Produit')->find($idproduit);
             $devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:Devis')->find($iddevis);
@@ -72,6 +72,8 @@ class DevisController extends Controller
             $ligne_devis->setProduit($produit);
             $ligne_devis->setPvtHT($produit->getPrixHT()*$quantite);
             $devis->setPrixHT($devis->getPrixHT()+$ligne_devis->getPvtHT());
+            $devis->setTva($tva);
+            $devis->setPrixTTC($devis->getPrixHT()+($devis->getPrixHT()*$devis->getTva()/100));
 
             $em->persist($ligne_devis);
             $em->persist($devis);
@@ -86,7 +88,7 @@ class DevisController extends Controller
     }
 
     /**
-     * @Route("/api/produit", name="api_get_produit")
+     * @Route("/api/produit/add", name="api_get_produit")
      * @Method({"GET", "POST"})
      */
     public function getProduitAction(Request $request)
@@ -94,5 +96,34 @@ class DevisController extends Controller
         $categorie = $this->getDoctrine()->getRepository("BackOfficeBundle:Categorie")->find((int)$request->request->get("categorie_id"));
         $produit = $categorie->getProduit()->toArray();
         return new JsonResponse($produit);
+    }
+
+    /**
+     * @Route("devis-ligne/delete",name="devis_ligne_delete")
+     * @Method({"GET", "POST"})
+     */
+
+    public function deleteLigneDevis(Request $request){
+        if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+
+            $idLigneDevis = $request->request->get('idLigneDevis');
+            $iddevis = $request->request->get('iddevis');
+            $tva = $request->request->get('tva');
+
+            $ligne_devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:LigneDevis')->find($idLigneDevis);
+            $devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:Devis')->find($iddevis);
+            $devis->setPrixHT($devis->getPrixHT()-$ligne_devis->getPvtHT());
+
+            $em->persist($devis);
+            $em->remove($ligne_devis);
+            $em->flush();
+
+            $liste_ligne_devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:LigneDevis')->findBy(array('devis'=>$devis));
+
+            return new JsonResponse($liste_ligne_devis);
+        }else{
+            return new Response('This is not ajax!', 400);
+        }
     }
 }

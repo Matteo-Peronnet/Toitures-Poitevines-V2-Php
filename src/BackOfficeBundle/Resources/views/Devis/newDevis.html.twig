@@ -1,384 +1,419 @@
 {% extends "BackOfficeBundle:Layout:layout.html.twig" %}
 {% block stylesheets %}
-    <link href="{{ asset("template/datatables.net-bs/css/dataTables.bootstrap.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("template/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("template/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("template/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") }}" rel="stylesheet">
-    <link href="{{ asset("template/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") }}" rel="stylesheet">
-    <!-- PNotify -->
-    <link href="{{ asset("template/pnotify/dist/pnotify.css") }}" rel="stylesheet">
-    <link href="{{ asset("template/pnotify/dist/pnotify.buttons.css") }}" rel="stylesheet">
-    <link href="{{ asset("template/pnotify/dist/pnotify.nonblock.css") }}" rel="stylesheet">
-
+<link href="{{ asset("template/datatables.net-bs/css/dataTables.bootstrap.min.css") }}" rel="stylesheet">
+<link href="{{ asset("template/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") }}" rel="stylesheet">
+<link href="{{ asset("template/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") }}" rel="stylesheet">
+<link href="{{ asset("template/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") }}" rel="stylesheet">
+<link href="{{ asset("template/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") }}" rel="stylesheet">
+<!-- PNotify -->
+<link href="{{ asset("template/pnotify/dist/pnotify.css") }}" rel="stylesheet">
+<link href="{{ asset("template/pnotify/dist/pnotify.buttons.css") }}" rel="stylesheet">
+<link href="{{ asset("template/pnotify/dist/pnotify.nonblock.css") }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-    <div class="nav-md">
-        <div class="container body">
-            <div class="main_container">
-                <div class="col-md-3 left_col">
-                    {% include "BackOfficeBundle:Layout:menu.html.twig" %}
-                </div>
-                <div class="top_nav">
-                    {% include "BackOfficeBundle:Layout:top-bar.html.twig" %}
-                </div>
-                <!-- page content -->
-                        <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
+<div class="nav-md">
+<div class="container body">
+   <div class="main_container">
+      <div class="col-md-3 left_col">
+         {% include "BackOfficeBundle:Layout:menu.html.twig" %}
+      </div>
+      <div class="top_nav">
+         {% include "BackOfficeBundle:Layout:top-bar.html.twig" %}
+      </div>
+      <!-- page content -->
+      <!-- page content -->
+      <div class="right_col" role="main">
+         <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Devis</h3>
-              </div>
+               <div class="title_left">
+                  <h3>Devis</h3>
+               </div>
             </div>
             <div class="clearfix"></div>
-
             <div class="row">
-
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Créer un Devis</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-
-                    <!-- Smart Wizard -->
-                    <p>Rentrez les informations nécéssaires dans chacunes des étapes pour créer un devis.</p>
-                    <div id="wizard" class="form_wizard wizard_horizontal">
-                      <ul class="wizard_steps">
-                        <li>
-                          <a href="#step-1">
-                            <span class="step_no">1</span>
-                            <span class="step_descr">
-                                              Etape 1<br />
-                                              <small>Paramètre client</small>
-                                          </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-2">
-                            <span class="step_no">2</span>
-                            <span class="step_descr">
-                                              Etape 2<br />
-                                              <small>Paramètre du Devis</small>
-                                          </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-3">
-                            <span class="step_no">3</span>
-                            <span class="step_descr">
-                                              Etape 3<br />
-                                              <small>Contenu Devis</small>
-                                          </span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-4">
-                            <span class="step_no">4</span>
-                            <span class="step_descr">
-                                              Etape 4<br />
-                                              <small>Step 4 description</small>
-                                          </span>
-                          </a>
-                        </li>
-                      </ul>
-                      <div id="step-1">
-                      <h2 class="StepTitle">Paramètre client</h2>
-                        {{ form_start(form_devis,{ 'attr': {'class': 'form-horizontal form-label-left','id':'form-id-'~devis.id} }) }}
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Entreprise <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
+               <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                     <div class="x_title">
+                        <h2>Créer un Devis</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                           </li>
+                           <li><a class="close-link"><i class="fa fa-close"></i></a>
+                           </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                     </div>
+                     <div class="x_content">
+                        <!-- Smart Wizard -->
+                        <p>Rentrez les informations nécéssaires dans chacunes des étapes pour créer un devis.</p>
+                        <div id="wizard" class="form_wizard wizard_horizontal">
+                           <ul class="wizard_steps">
+                              <li>
+                                 <a href="#step-1">
+                                 <span class="step_no">1</span>
+                                 <span class="step_descr">
+                                 Etape 1<br />
+                                 <small>Paramètre client</small>
+                                 </span>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#step-2">
+                                 <span class="step_no">2</span>
+                                 <span class="step_descr">
+                                 Etape 2<br />
+                                 <small>Paramètre du Devis</small>
+                                 </span>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#step-3">
+                                 <span class="step_no">3</span>
+                                 <span class="step_descr">
+                                 Etape 3<br />
+                                 <small>Contenu Devis</small>
+                                 </span>
+                                 </a>
+                              </li>
+                              <li>
+                                 <a href="#step-4">
+                                 <span class="step_no">4</span>
+                                 <span class="step_descr">
+                                 Etape 4<br />
+                                 <small>Step 4 description</small>
+                                 </span>
+                                 </a>
+                              </li>
+                           </ul>
+                           <div id="step-1">
+                              <h2 class="StepTitle">Paramètre client</h2>
+                              {{ form_start(form_devis,{ 'attr': {'class': 'form-horizontal form-label-left','id':'form-id-'~devis.id} }) }}
+                              <div class="item form-group">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Entreprise <span class="required">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     {{ form_row(form_devis.entreprise,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
-                           </div>
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Client <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
+                                 </div>
+                              </div>
+                              <div class="item form-group">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Client <span class="required">*</span>
+                                 </label>
+                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     {{ form_row(form_devis.client,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
+                                 </div>
+                              </div>
+                              </form>
                            </div>
-                        </form>
-                      </div>
-                      <div id="step-2">
-                      <h2 class="StepTitle">Paramètre du Devis</h2>
-                      <form class="form-horizontal form-label-left"">
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">TVA <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {{ form_row(form_devis.tva,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
-                           </div>
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Chantier <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {{ form_row(form_devis.chantier,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
-                           </div>
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Numéro <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {{ form_row(form_devis.numero,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
-                           </div>
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Date <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {{ form_row(form_devis.date,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
-
-                           </div>
-                           <div class="item form-group">
-                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Information <span class="required">*</span>
-                               </label>
-                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {{ form_row(form_devis.information,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                               </div>
-                           </div>
-                      </div>
-                      </form>
-                      <div id="step-3">
-
-
-                        <h2 class="StepTitle">Contenu Devis</h2>
-                            <div class="row">
-                            <div class="col-md-9 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_title">
-                                        <h2>Ajouter un Produit au devis</h2>
-                                        <ul class="nav navbar-right panel_toolbox">
-                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                            </li>
-                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                            </li>
-                                        </ul>
-                                        <div class="clearfix"></div>
+                           <div id="step-2">
+                              <h2 class="StepTitle">Paramètre du Devis</h2>
+                              <form class="form-horizontal form-label-left"">
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">TVA <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       {{ form_row(form_devis.tva,{ 'attr': {'class': 'form-control col-md-7 col-xs-12','id':'tva-choice'} }) }}
                                     </div>
-                                    <div class="x_content">
-                                            {{ form_start(form_ligne_devis,{'attr': {'class': 'form-horizontal form-label-left ','id': 'form_LigneDevis'}}) }}
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Catégorie <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    {{ form_row(form_ligne_devis.categorie,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nom <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    {{ form_row(form_ligne_devis.produit,{  'id': 'form_LigneDevis-produit','attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Quantité <span class="required">*</span>
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    {{ form_row(form_ligne_devis.quantite,{  'id': 'form_LigneDevis-quantite','attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
-                                                    </div>
-                                                </div>
-                                                <div class="ln_solid"></div>
-                                                <div class="form-group">
-                                                    <div class="col-md-6 col-md-offset-3">
-                                                       <input id="form_LigneDevis-submit" type="submit" value="Ajouter" class="btn btn-success pull-right" />
-                                                  </div>
-                                                </div>
-
-                                            {{ form_widget(form_ligne_devis) }}
-                                            {{ form_end(form_ligne_devis) }}
-                                        </form>
+                                 </div>
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Chantier <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       {{ form_row(form_devis.chantier,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="x_panel">
-                                    <div class="x_content">
-                                        <table id="datatable table-insert-ligneDevis" class="table table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Catégorie</th>
-                                                <th>Produit</th>
-                                                <th>Quantité</th>
-                                                <th>Prix HT</th>
-                                                <th>PVT HT</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-
-                                            <tbody>
-                                              {% for ligneDevis in devis.ligneDevis %}
+                                 </div>
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Numéro <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       {{ form_row(form_devis.numero,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                    </div>
+                                 </div>
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Date <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       {{ form_row(form_devis.date,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                    </div>
+                                 </div>
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Information <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                       {{ form_row(form_devis.information,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                    </div>
+                                 </div>
+                           </div>
+                           </form>
+                           <div id="step-3">
+                              <h2 class="StepTitle">Contenu Devis</h2>
+                              <div class="row">
+                                 <div class="col-md-9 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                       <div class="x_title">
+                                          <h2>Ajouter un Produit au devis</h2>
+                                          <ul class="nav navbar-right panel_toolbox">
+                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                             </li>
+                                             <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                             </li>
+                                          </ul>
+                                          <div class="clearfix"></div>
+                                       </div>
+                                       <div class="x_content">
+                                          {{ form_start(form_ligne_devis,{'attr': {'class': 'form-horizontal form-label-left ','id': 'form_LigneDevis'}}) }}
+                                          <div class="item form-group">
+                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Catégorie <span class="required">*</span>
+                                             </label>
+                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                                {{ form_row(form_ligne_devis.categorie,{ 'attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                             </div>
+                                          </div>
+                                          <div class="item form-group">
+                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nom <span class="required">*</span>
+                                             </label>
+                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                                {{ form_row(form_ligne_devis.produit,{  'id': 'form_LigneDevis-produit','attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                             </div>
+                                          </div>
+                                          <div class="item form-group">
+                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Quantité <span class="required">*</span>
+                                             </label>
+                                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                                {{ form_row(form_ligne_devis.quantite,{  'id': 'form_LigneDevis-quantite','attr': {'class': 'form-control col-md-7 col-xs-12'} }) }}
+                                             </div>
+                                          </div>
+                                          <div class="ln_solid"></div>
+                                          <div class="form-group">
+                                             <div class="col-md-6 col-md-offset-3">
+                                                <input id="form_LigneDevis-submit" type="submit" value="Ajouter" class="btn btn-success pull-right" onclick = "new PNotify({
+                                                   title: 'Produit ajouté',
+                                                   text: 'Le tableau est mis a jour!',
+                                                   type: 'success',
+                                                   styling: 'bootstrap3'})
+                                                   " />
+                                             </div>
+                                          </div>
+                                          {{ form_widget(form_ligne_devis) }}
+                                          {{ form_end(form_ligne_devis) }}
+                                          </form>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+                                       <div class="x_content">
+                                          <table id="datatable table-insert-ligneDevis" class="table table table-striped">
+                                             <thead>
                                                 <tr>
-                                                    <td>{{ ligneDevis.produit.categorie.nom }}</td>
-                                                    <td>{{ ligneDevis.produit.nom }}</td>
-                                                    <td>{{ ligneDevis.quantite }}</td>
-                                                    <td>{{ ligneDevis.produit.prixHT }}</td>
-                                                    <td>{{ ligneDevis.pvtHT }}</td>
-                                                    {{ form_start(delete_forms[ligneDevis.id], {attr: {style: 'display:inline','onclick': 'return confirm("Es-tu sur de vouloir supprimer la catégorie ?")'}}) }}
-                                                        <button class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button>
-                                                    {{ form_end(delete_forms[ligneDevis.id]) }}
+                                                   <th>Catégorie</th>
+                                                   <th>Produit</th>
+                                                   <th>Quantité</th>
+                                                   <th>Prix HT</th>
+                                                   <th>PVT HT</th>
+                                                   <th>Action</th>
                                                 </tr>
-                                               {% endfor %}
-                                            </tbody>
-                                        </table>
+                                             </thead>
+                                             <tbody>
+                                                {% for ligneDevis in devis.ligneDevis %}
+                                                <tr>
+                                                   <td>{{ ligneDevis.produit.categorie.nom }}</td>
+                                                   <td>{{ ligneDevis.produit.nom }}</td>
+                                                   <td>{{ ligneDevis.quantite }}</td>
+                                                   <td>{{ ligneDevis.produit.prixHT }}</td>
+                                                   <td>{{ ligneDevis.pvtHT }}</td>
+                                                   {{ form_start(delete_forms[ligneDevis.id], {attr: {style: 'display:inline','onclick': 'return confirm("Es-tu sur de vouloir supprimer la catégorie ?")'}}) }}
+                                                   <button class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button>
+                                                   {{ form_end(delete_forms[ligneDevis.id]) }}
+                                                </tr>
+                                                {% endfor %}
+                                             </tbody>
+                                          </table>
+                                       </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-6 col-xs-offset-6">
-                          <div class="table-responsive">
-                            <table class="table">
-                              <tbody>
-                                <tr>
-                                  <th style="width:50%">Total HT :</th>
-                                  <td id="prix-ht">{{ devis.prixHT }}€</td>
-                                </tr>
-                                <tr>
-                                  <th>TVA {{ devis.tva }}</th>
-                                  <td>0€</td>
-                                </tr>
-                                <tr>
-                                  <th>Total TTC:</th>
-                                  <td id="prix-ttc">{{ devis.prixTTC }}€</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+                                 </div>
+                                 <div class="col-xs-6 col-xs-offset-6">
+                                    <div class="table-responsive">
+                                       <table class="table">
+                                          <tbody>
+                                             <tr>
+                                                <th style="width:50%">Total HT :</th>
+                                                <td id="table-prix-ht">{{ devis.prixHT }}€</td>
+                                             </tr>
+                                             <tr>
+                                                <th id="table-tva">TVA</th>
+                                                <td id="table-prix-tva">0€</td>
+                                             </tr>
+                                             <tr>
+                                                <th>Total TTC:</th>
+                                                <td id="table-prix-ttc">{{ devis.prixTTC }}€</td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="step-4">
+                              <h2 class="StepTitle">Step 4 Content</h2>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                              <p>
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                              <p>
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                              </form>
+                           </div>
                         </div>
-                        </div>
-                      </div>
-                      <div id="step-4">
-                        <h2 class="StepTitle">Step 4 Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-
-                        </form>
-                      </div>
-
-                    </div>
-                    <!-- End SmartWizard Content -->
+                        <!-- End SmartWizard Content -->
+                     </div>
                   </div>
-                </div>
-              </div>
+               </div>
             </div>
-          </div>
-        </div>
-        <!-- /page content -->
-                <!-- /Page Content -->
-
-    <!-- footer content -->
-    <footer>
-        <div class="pull-right">
+         </div>
+      </div>
+      <!-- /page content -->
+      <!-- /Page Content -->
+      <!-- footer content -->
+      <footer>
+         <div class="pull-right">
             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-        </div>
-        <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
-    </div>
-    </div>
+         </div>
+         <div class="clearfix"></div>
+      </footer>
+      <!-- /footer content -->
+   </div>
+</div>
 {% endblock %}
-
 {% block javascripts %}
-    <!-- PNotify -->
-    <script src="{{ asset('template/pnotify/dist/pnotify.js') }}"></script>
-    <script src="{{ asset('template/pnotify/dist/pnotify.buttons.js') }}"></script>
-    <script src="{{ asset('template/pnotify/dist/pnotify.nonblock.js') }}"></script>
-    <script src="{{ asset('template/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
-        <script type="text/javascript">
-    $(document).ready(function(){
-            $("#form_LigneDevis").submit(function(event) {
-                event.preventDefault();
-                //form-id-
-                var iddevis = $('[id^="form-id-"]');
+<!-- PNotify -->
+<script src="{{ asset('template/pnotify/dist/pnotify.js') }}"></script>
+<script src="{{ asset('template/pnotify/dist/pnotify.buttons.js') }}"></script>
+<script src="{{ asset('template/pnotify/dist/pnotify.nonblock.js') }}"></script>
+<script src="{{ asset('template/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var table = document.getElementById("datatable table-insert-ligneDevis");
+        $("#form_LigneDevis").submit(function(event) {
+            event.preventDefault();
+            //form-id-
+            var iddevis = $('[id^="form-id-"]');
 
+            iddevis = iddevis.attr('id');
+            iddevis = iddevis.replace("form-id-", "");
+
+            var idproduit = document.getElementById("form_LigneDevis-produit").value;
+            var quantite = document.getElementById("form_LigneDevis-quantite").value;
+            var tva = $('#backofficebundle_devis_tva option:selected').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('devis_ligne_new') }}",
+                data: {
+                    idproduit: idproduit,
+                    quantite: quantite,
+                    iddevis: iddevis,
+                    tva: tva
+                },
+                success: function(datas) {
+                    ResetTableau(datas);
+                },
+                error: function(xhr, error) {
+                    console.debug(xhr);
+                    console.debug(error);
+                }
+            })
+        });
+
+        var $categorie = $("#{{ form_ligne_devis.categorie.vars.id }}");
+        var $produit = $("#form_LigneDevis-produit");
+        $categorie.on("change", function(evt) {
+            var data = {};
+            data["categorie_id"] = $categorie.val();
+            $.ajax({
+                url: "{{ path('api_get_produit') }}",
+                type: "POST",
+                data: data,
+                success: function(datas) {
+                    $produit.find('option').remove();
+                    datas.forEach(function(e) {
+                        var o = $("<option/>", {
+                            text: e.nom,
+                            value: e.id
+                        });
+                        o.appendTo($produit);
+                    });
+                }
+            });
+        });
+        $('body').on('DOMNodeInserted', '[id^="table_ligne_devis-"]', function () {
+            $('[id^="table_ligne_devis-"]').on("click", function(event){
+            //$('[id^="table_ligne_devis-"]').click(function(event) {
+                event.preventDefault();
+                ligne_devis = $(this).attr('id');
+                ligne_devis = ligne_devis.replace("table_ligne_devis-", "");
+                var iddevis = $('[id^="form-id-"]');
                 iddevis = iddevis.attr('id');
                 iddevis = iddevis.replace("form-id-", "");
-
-                var idproduit = document.getElementById("form_LigneDevis-produit").value;
-                var quantite = document.getElementById("form_LigneDevis-quantite").value;
-
-                ///var table = $("#table-insert-ligneDevis");
-                var table = document.getElementById("datatable table-insert-ligneDevis");
-
+                //console.log(ligne_devis);
                 $.ajax({
                     type: 'POST',
-                    url: "{{ path('devis_ligne_new') }}",
-                    data: {idproduit: idproduit, quantite: quantite, iddevis: iddevis},
-                    success: function (datas) {
-                        while(table.rows.length > 1) {
-                          table.deleteRow(1);
-                        }
-                        datas.forEach(function (e,index) {
-                            if(index==0){
-                                document.getElementById("prix-ht").innerHTML = e.totalHT+'€';
-                                document.getElementById("prix-ttc").innerHTML = e.totalTTC+'€';
-                            }
-                            var row = table.insertRow();
-                            var cell1 = row.insertCell(0);
-                            cell1.innerHTML = e.categorie;
-
-                            var cell2 = row.insertCell(1);
-                            cell2.innerHTML = e.produit;
-
-                            var cell3 = row.insertCell(2);
-                            cell3.innerHTML = e.quantite;
-
-                            var cell4 = row.insertCell(3);
-                            cell4.innerHTML = e.prixHT+'€';
-
-                            var cell5 = row.insertCell(4);
-                            cell5.innerHTML = e.pvtHT+'€';
-
-                            var cell6 = row.insertCell(5);
-                            cell6.innerHTML = "TEST";
-                        });
+                    url: "{{ path('devis_ligne_delete') }}",
+                    data: {
+                        idLigneDevis: ligne_devis,
+                        iddevis: iddevis
                     },
-                    error: function(xhr, error){
-                    console.debug(xhr);
-                    console.debug(error);
-                    }
-                })
-            });
-
-           var $categorie = $("#{{ form_ligne_devis.categorie.vars.id }}");
-           var $produit = $("#form_LigneDevis-produit");
-           $categorie.on("change", function (evt) {
-                var data = {};
-                data["categorie_id"] = $categorie.val();
-                $.ajax({
-                    url: "{{ path('api_get_produit') }}",
-                    type: "POST",
-                    data: data,
-                    success: function (datas) {
-                        $produit.find('option').remove();
-                        datas.forEach(function (e) {
-                            var o = $("<option/>", {text: e.nom, value: e.id});
-                            o.appendTo($produit);
-                        });
+                    success: function(datas) {
+                        ResetTableau(datas);
                     }
                 });
             });
+        });
+
+
+        function ResetTableau(datas) {
+            while (table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            console.log(datas);
+            if (jQuery.isEmptyObject(datas)){
+                document.getElementById("table-prix-ht").innerHTML = "0€";
+                document.getElementById("table-prix-ttc").innerHTML = "0€";
+                document.getElementById("table-prix-tva").innerHTML = "0€";
+                document.getElementById("table-tva").innerHTML = "TVA " + $('#backofficebundle_devis_tva option:selected').val();
+            }else{
+                document.getElementById("table-prix-ht").innerHTML = datas[0].totalHT + '€';
+                document.getElementById("table-prix-ttc").innerHTML = datas[0].totalTTC + '€';
+                document.getElementById("table-prix-tva").innerHTML = datas[0].prixTVA + '€';
+                document.getElementById("table-tva").innerHTML = "TVA " + $('#backofficebundle_devis_tva option:selected').val()+ "% :";
+
+            }
+
+            datas.forEach(function(e, index) {
+                var row = table.insertRow();
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = e.categorie;
+
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = e.produit;
+
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = e.quantite;
+
+                var cell4 = row.insertCell(3);
+                cell4.innerHTML = e.prixHT + '€';
+
+                var cell5 = row.insertCell(4);
+                cell5.innerHTML = e.pvtHT + '€';
+
+                var cell6 = row.insertCell(5);
+                cell6.innerHTML = '<button id="table_ligne_devis-' + e.id + '" class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button>';
+            });
+        }
     });
-    </script>
+</script>
 {% endblock %}

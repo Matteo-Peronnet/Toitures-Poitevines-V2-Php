@@ -1,0 +1,101 @@
+body{
+    font-size: 11px;
+}
+p, td{
+    font-size: 18px;
+}
+.pull-right{
+    text-align: right !important;
+}
+.info{
+    width:100%;
+}
+.info-devis{
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    text-align: center;
+    border: 2px solid dimgrey;
+    padding: 5px;
+    border-radius: 10px;
+}
+.info-devis p{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 10px;
+}
+.info-client, .info-entreprise{
+    display: inline-block;
+}
+.info-entreprise{
+    padding: 10px;
+    margin-left: 0px;
+    margin-top: 40px;
+    border: 3px solid black;
+    font-weight: 900;
+    height: 150px;
+}
+.info-entreprise p{
+    display: inline-block;
+    clear:both;
+    float: left;
+}
+.info-client{
+    float: right;
+    margin-top: 60px;
+    margin-right: 100px;
+}
+.tableau{
+    margin-left: 0px;
+}
+.tableau .title p{
+    margin-top: 50px;
+    text-decoration: underline;
+}
+th{
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+.title-categorie{
+    color: #00CC33;
+    font-size: 18px;
+    font-weight: bold;
+}
+.info-devis-legal, .bon-accord{
+    display: inline-block;
+}
+.info-devis-legal{
+    margin-left: 0px;
+}
+.info-devis-legal p{
+    display: inline-block;
+    clear: both;
+    float: left;
+    width:400px;
+}
+.bon-accord{
+    margin-top: 20px;
+    text-align: center;
+    padding: 15px;
+    padding-right: 100px;
+    padding-left: 100px;
+    margin-right: 0px;
+    float: right;
+    border: 1px solid black;
+}
+.info-bottom{
+    margin-top: 50px;
+}
+.border-top{
+    border-top: 1px solid black;
+    display: inline-block;
+}
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}

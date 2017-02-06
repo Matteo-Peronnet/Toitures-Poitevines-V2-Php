@@ -42,56 +42,19 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <article class="media event">
-                                    <a class="pull-left date">
-                                        <p class="month">April</p>
-                                        <p class="day">23</p>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="title" href="#">Item One Title</a>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
-                                </article>
-                                <article class="media event">
-                                    <a class="pull-left date">
-                                        <p class="month">April</p>
-                                        <p class="day">20</p>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="title" href="#">Item Two Title</a>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
-                                </article>
-                                <article class="media event">
-                                    <a class="pull-left date">
-                                        <p class="month">April</p>
-                                        <p class="day">13</p>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="title" href="#">Item Two Title</a>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
-                                </article>
-                                <article class="media event">
-                                    <a class="pull-left date">
-                                        <p class="month">April</p>
-                                        <p class="day">10</p>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="title" href="#">Item Two Title</a>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
-                                </article>
-                                <article class="media event">
-                                    <a class="pull-left date">
-                                        <p class="month">April</p>
-                                        <p class="day">5</p>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="title" href="#">Item Three Title</a>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
-                                </article>
+
+                                {% for leDevis in liste_devis %}
+                                    <article class="media event">
+                                        <a class="pull-left date">
+                                            <p class="month">{{ leDevis.date |localizeddate("medium", "none", null, null, "LLLL") |capitalize}}</p>
+                                            <p class="day">{{ leDevis.date | date("d") }}</p>
+                                        </a>
+                                        <div class="media-body">
+                                            <a class="title" href="#">{{ leDevis.client.nom }} {{ leDevis.client.prenom }} Devis n°{{ leDevis.numero }}</a>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        </div>
+                                    </article>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

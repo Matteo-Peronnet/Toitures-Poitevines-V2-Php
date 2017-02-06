@@ -10,4 +10,14 @@ namespace BackOfficeBundle\Repository;
  */
 class LigneDevisRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getSortLigneDevisOfDevis($devis){
+        return $this->createQueryBuilder('l')
+            ->innerJoin('BackOfficeBundle:Produit','p','with','l.produit = p.id')
+            ->innerJoin('BackOfficeBundle:Categorie','c','with','c.id = p.categorie')
+            ->andWhere('c.id = p.categorie order by c.placement ASC')
+            ->innerJoin('BackOfficeBundle:Devis','d','with','l.devis = :devis')
+            ->setParameter('devis',$devis)
+            ->getQuery()->getResult();
+    }
 }

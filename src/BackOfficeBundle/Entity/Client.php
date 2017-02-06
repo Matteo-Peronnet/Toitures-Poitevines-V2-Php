@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="client")
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\ClientRepository")
  */
-class Client
+class Client implements \JsonSerializable
 {
     /**
      * @var int
@@ -315,5 +315,12 @@ class Client
     public function getUniqueName()
     {
         return sprintf('%s %s', $this->nom, $this->prenom);
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'adresse'=>$this->adresse." ".$this->ville
+        );
     }
 }

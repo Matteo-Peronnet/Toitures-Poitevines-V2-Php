@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <title>Génération Devis</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="{{ absolute_url(asset('build/css/devis.css')) }}" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+            <img src="{{ absolute_url(asset('images/logo.png')) }}" height="90px">
+        <div class="info">
+            <div class="info-devis">
+                <img src="{{ absolute_url(asset('images/imgDevis.png')) }}" height="50px"><br/>
+                <p>Numéro {{ devis.numero }}</p><br/>
+                <p>Le {{ devis.date| date("d") }}-{{ devis.date| date("m") }}-{{ devis.date| date("y") }}</p>
+            </div>
+
+            <div class="info-entreprise">
+                <p>Co-gérants : {{ devis.entreprise.coGerants }}</p>
+                <p>Siège : {{ devis.entreprise.siege }} </p>
+                <p>TEL : {{ devis.entreprise.telephone }}</p>
+            </div>
+
+            <div class="info-client">
+                <p>{{ devis.client.nom }} {{ devis.client.prenom }}</p>
+                <p>{{ devis.client.adresse }}</p>
+                <p>{{ devis.client.codePostal }} {{ devis.client.ville }}</p>
+            </div>
+        </div>
+        <div class="tableau">
+            <div class="title">
+                <p>CHANTIER : {{ devis.chantier }}</p>
+            </div>
+            <table style="width:100%">
+                <tr>
+                    <th>Désignation</th>
+                    <th class="text-center">Unite</th>
+                    <th class="text-center">Quantité</th>
+                    <th class="text-center">Prix HT</th>
+                    <th class="text-center">Pvt HT</th>
+                </tr>
+
+                {% set CategorieNom = null %}
+                {% for laLigneDevis in ligne_devis %}
+                    {% if loop.first %}
+                        {% set CategorieNom = laLigneDevis.produit.categorie.nom %}
+                        <tr>
+                            <td class="title-categorie" colspan="5">{{ laLigneDevis.produit.categorie.nom }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if CategorieNom == laLigneDevis.produit.categorie.nom %}
+                        <tr>
+                            <td>{{ laLigneDevis.produit.nom }}</td>
+                            <td class="text-center">{{ laLigneDevis.produit.unite }}</td>
+                            <td class="text-center">{{ laLigneDevis.quantite }}</td>
+                            <td class="text-center">{{ laLigneDevis.produit.prixHT }}€</td>
+                            <td class="text-center">{{ laLigneDevis.PvtHT }}€</td>
+                        </tr>
+                     {% else %}
+                         {% set CategorieNom = laLigneDevis.produit.categorie.nom %}
+                         <tr>
+                             <td class="title-categorie" colspan="5">{{ laLigneDevis.produit.categorie.nom }}</td>
+                         </tr>
+                         <tr>
+                             <td>{{ laLigneDevis.produit.nom }}</td>
+                             <td class="text-center">{{ laLigneDevis.produit.unite }}</td>
+                             <td class="text-center">{{ laLigneDevis.quantite }}</td>
+                             <td class="text-center">{{ laLigneDevis.produit.prixHT }}€</td>
+                             <td class="text-center">{{ laLigneDevis.PvtHT }}€</td>
+                         </tr>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- FIN PARCOUR !-->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">SOUS-TOTAL</td>
+                    <td></td>
+                    <td class="border-top">{{ devis.prixHT }}€</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">TVA {{ devis.tva }}%</td>
+                    <td></td>
+                    <td>{{ (devis.tva/100)*devis.prixHT }}€</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">Total TTC</td>
+                    <td></td>
+                    <td class="border-top">{{ devis.prixTTC }}€</td>
+                </tr>
+            </table>
+        </div>
+            <div class="info-bottom">
+
+                <div class="info-devis-legal">
+                    <p>
+                        {{ devis.information }}
+                    </p>
+                </div>
+
+                <div class="bon-accord">
+                    <p style="font-weight: bold">BON POUR ACCORD</p>
+                    <p>signature du client</p>
+                    <p>Lu et approuvé</p>
+                </div>
+            </div>
+<footer></footer>
+</body>
+
+</html>

@@ -24,7 +24,7 @@ class Devis
     /**
      * @var int
      *
-     * @ORM\Column(name="numero", type="integer", unique=true, nullable=true)
+     * @ORM\Column(name="numero", type="integer", unique=false, nullable=true)
      */
     private $numero;
 
@@ -81,7 +81,7 @@ class Devis
 
     /**
      * @var LigneDevis
-     * @ORM\OneToMany(targetEntity="BackOfficeBundle\Entity\LigneDevis", cascade={"persist"},mappedBy="devis")
+     * @ORM\OneToMany(targetEntity="BackOfficeBundle\Entity\LigneDevis", cascade={"remove"},mappedBy="devis")
      */
     private $ligneDevis;
 

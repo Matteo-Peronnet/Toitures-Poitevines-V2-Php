@@ -10,4 +10,16 @@ namespace BackOfficeBundle\Repository;
  */
 class DevisRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getMaxNumeroDevis(){
+        return $this->createQueryBuilder('d')
+            ->select('MAX(d.numero)')
+            ->where("d.brouillon=false")
+            ->getQuery()->getSingleResult();
+    }
+    public function getLastsDevisNotBrouillon(){
+        return $this->createQueryBuilder('d')
+            ->where("d.brouillon=false order by d.date desc")
+            ->setMaxResults(5)
+            ->getQuery()->getResult();
+    }
 }

@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ligne_devis")
  * @ORM\Entity(repositoryClass="BackOfficeBundle\Repository\LigneDevisRepository")
  */
-class LigneDevis implements \JsonSerializable
+    class LigneDevis implements \JsonSerializable
 {
     /**
      * @var int

@@ -80,7 +80,7 @@
                                  <span class="step_no">4</span>
                                  <span class="step_descr">
                                  Etape 4<br />
-                                 <small>Step 4 description</small>
+                                 <small>Paramètre d'envoi</small>
                                  </span>
                                  </a>
                               </li>
@@ -221,9 +221,7 @@
                                                    <td>{{ ligneDevis.quantite }}</td>
                                                    <td>{{ ligneDevis.produit.prixHT }}</td>
                                                    <td>{{ ligneDevis.pvtHT }}</td>
-                                                   {{ form_start(delete_forms[ligneDevis.id], {attr: {style: 'display:inline','onclick': 'return confirm("Es-tu sur de vouloir supprimer la catégorie ?")'}}) }}
-                                                   <button class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button>
-                                                   {{ form_end(delete_forms[ligneDevis.id]) }}
+                                                   <td><button id="{{ 'table_ligne_devis-'~ligneDevis.id }}"class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button></td>
                                                 </tr>
                                                 {% endfor %}
                                              </tbody>
@@ -254,19 +252,31 @@
                               </div>
                            </div>
                            <div id="step-4">
-                              <h2 class="StepTitle">Step 4 Content</h2>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                              <p>
-                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                              <p>
-                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              </p>
-                              </form>
+                              <h2 class="StepTitle">Paramètre d'envoi</h2>
+                               <form class="form-horizontal form-label-left">
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Envoi Secrétaire <span class="required">*</span>
+                                    </label>
+                                    <div class="checkbox">
+                                        <label class="">
+                                          <div class="icheckbox_flat-green checked" style="position: relative;">
+                                              {{ form_row(form_devis.envoiSecretaire,{ 'attr': {'class': 'flat'} }) }}
+                                        </div>
+                                        </label>
+                                    </div>
+                                 </div>
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Envoi Client <span class="required">*</span>
+                                    </label>
+                                    <div class="checkbox">
+                                        <label class="">
+                                          <div class="icheckbox_flat-green checked" style="position: relative;">
+                                              {{ form_row(form_devis.envoiClient,{ 'attr': {'class': 'flat'} }) }}
+                                        </div>
+                                        </label>
+                                    </div>
+                                 </div>
+                                 </form>
                            </div>
                         </div>
                         <!-- End SmartWizard Content -->
@@ -373,6 +383,27 @@
                 });
             });
         });
+        $('[id^="table_ligne_devis-"]').on("click", function(event){
+            //$('[id^="table_ligne_devis-"]').click(function(event) {
+                event.preventDefault();
+                ligne_devis = $(this).attr('id');
+                ligne_devis = ligne_devis.replace("table_ligne_devis-", "");
+                var iddevis = $('[id^="form-id-"]');
+                iddevis = iddevis.attr('id');
+                iddevis = iddevis.replace("form-id-", "");
+                //console.log(ligne_devis);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ path('devis_ligne_delete') }}",
+                    data: {
+                        idLigneDevis: ligne_devis,
+                        iddevis: iddevis
+                    },
+                    success: function(datas) {
+                        ResetTableau(datas);
+                    }
+                });
+            });
 
 
         function ResetTableau(datas) {
@@ -414,6 +445,68 @@
                 cell6.innerHTML = '<button id="table_ligne_devis-' + e.id + '" class="btn btn-danger btn-sm"><span class="fa fa-times-circle"></span> Supprimer</button>';
             });
         }
+        var $client = $("#{{ form_devis.client.vars.id }}");
+        $client.on("change", function(evt) {
+            var data = {};
+            data["client"] = $client.val();
+            $.ajax({
+                url: "{{ path('api_get_client') }}",
+                type: "POST",
+                data: data,
+                success: function(datas) {
+                    document.getElementById("backofficebundle_devis_chantier").value= datas.adresse;
+                }
+            });
+        });
+
+        $('#wizard').smartWizard({
+            transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
+            enableFinishButton: false, // makes finish button enabled always,
+            onFinish: onFinishCallback,
+            onCancel: null,
+        })
+
+        function onFinishCallback(){
+            var chantier = document.getElementById("backofficebundle_devis_chantier").value;
+            var numero = document.getElementById("backofficebundle_devis_numero").value;
+            var date = document.getElementById("backofficebundle_devis_date_day").value + '-' +
+                       document.getElementById("backofficebundle_devis_date_month").value + '-' +
+                       document.getElementById("backofficebundle_devis_date_year").value
+            var information = document.getElementById("backofficebundle_devis_information").value;
+            var client = $("#{{ form_devis.client.vars.id }}").val();
+            var entreprise = $("#{{ form_devis.entreprise.vars.id }}").val();
+            var envoisecretaire = document.getElementById("backofficebundle_devis_envoiSecretaire").value;
+            var envoiclient = document.getElementById("backofficebundle_devis_envoiClient").value;
+            var tva = $('#backofficebundle_devis_tva option:selected').val();
+            var devis = $('[id^="form-id-"]');
+            devis = devis.attr('id');
+            devis = devis.replace("form-id-", "");
+
+            $.ajax({
+              type:'POST',
+              url: '{{ path('devis_validate') }}',
+              data: {
+                  chantier : chantier,
+                  numero : numero,
+                  date : date,
+                  information: information,
+                  client: client,
+                  entreprise: entreprise,
+                  envoisecretaire: envoisecretaire,
+                  envoiclient: envoiclient,
+                  devis: devis,
+                  tva: tva
+              },
+              success: function(){
+                  var url = '{{  path('devis_generation',{'id': devis.id})  }}';
+                  url = url.replace("region_id", this.value);
+                  window.location.assign(url);
+                   //window.location.assign(location.href.replace("devis/new","devis/generation/"+devis));
+                   {#window.location.assign({{ path('devis_generation',{'id': devis}) }});#}
+              }
+             });
+        }
+
     });
 </script>
 {% endblock %}

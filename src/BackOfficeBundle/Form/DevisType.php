@@ -4,6 +4,7 @@ namespace BackOfficeBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -35,7 +36,7 @@ class DevisType extends AbstractType
                 ))
                 ->add('information',TextareaType::class,array('label' => false, 'required' => true))
                 ->add('chantier',TextType::class,array('label' => false, 'required' => true))
-                ->add('date',DateType::class,array('label' => false, 'required' => true))
+                ->add('date',DateType::class,array('label' => false, 'required' => true,'html5'=>true))
                 ->add('client',EntityType::class,array(
                     'class'=>"BackOfficeBundle:Client",
                     'choice_label'=>'UniqueName',
@@ -47,6 +48,14 @@ class DevisType extends AbstractType
                     'choice_label'=>'nom',
                     'label' => false,
                     'required' => true
+                ))
+                ->add('envoiSecretaire', CheckboxType::class, array(
+                    'mapped'=>false,
+                    'label'=>false
+                ))
+                ->add('envoiClient', CheckboxType::class, array(
+                    'mapped'=>false,
+                    'label'=>false
                 ));
     }
     /**

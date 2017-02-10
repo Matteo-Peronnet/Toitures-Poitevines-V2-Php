@@ -45,12 +45,12 @@
 
                                 {% for leDevis in liste_devis %}
                                     <article class="media event">
-                                        <a class="pull-left date">
+                                        <a href="{{ app.request.getBaseURL() }}/devis/{{ leDevis.id }}/view" class="pull-left date">
                                             <p class="month">{{ leDevis.date |localizeddate("medium", "none", null, null, "LLLL") |capitalize}}</p>
                                             <p class="day">{{ leDevis.date | date("d") }}</p>
                                         </a>
                                         <div class="media-body">
-                                            <a class="title" href="#">{{ leDevis.client.nom }} {{ leDevis.client.prenom }} Devis n°{{ leDevis.numero }}</a>
+                                            <a class="title" href="{{ app.request.getBaseURL() }}/devis/{{ leDevis.id }}/view">{{ leDevis.client.nom }} {{ leDevis.client.prenom }} Devis n°{{ leDevis.numero }}</a>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                         </div>
                                     </article>

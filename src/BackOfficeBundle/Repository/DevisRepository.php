@@ -18,7 +18,7 @@ class DevisRepository extends \Doctrine\ORM\EntityRepository
     }
     public function getLastsDevisNotBrouillon(){
         return $this->createQueryBuilder('d')
-            ->where("d.brouillon=false order by d.date desc")
+            ->where("d.brouillon=false order by d.numero desc")
             ->setMaxResults(5)
             ->getQuery()->getResult();
     }

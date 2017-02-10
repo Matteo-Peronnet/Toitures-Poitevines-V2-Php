@@ -20,6 +20,7 @@ class LoadEntrepriseData extends AbstractFixture implements OrderedFixtureInterf
         $toituresPoitevine->setTva("TVA FR 264 844 945 70");
         $toituresPoitevine->setSiege("10 allée René Caillié 86 000 POITIERS");
         $toituresPoitevine->setTelephone("05.49.11.94.42 ou 06.72.42.55.92");
+        $toituresPoitevine->setEmail("lvm.peronnet@orange.fr");
 
         $manager->persist($toituresPoitevine);
         $manager->flush();

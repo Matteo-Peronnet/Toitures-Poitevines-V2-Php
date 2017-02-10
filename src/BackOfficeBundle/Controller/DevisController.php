@@ -9,6 +9,8 @@ use BackOfficeBundle\Form\LigneDevisType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -177,6 +179,7 @@ class DevisController extends Controller
 
             $em->persist($devis);
             $em->flush();
+
             return new JsonResponse("Good");
         }
     }
@@ -194,19 +197,30 @@ class DevisController extends Controller
             'devis'=>$devis,
             'ligne_devis'=>$ligne_devis
         ));
+
         $pdfFolder = __DIR__.'../../../../web/uploads/Devis/';
         if(file_exists($pdfFolder.'devis-'.$devis->getNumero().'.pdf')){
             unlink($pdfFolder.'devis-'.$devis->getNumero().'.pdf');
         }
-        $this->get('knp_snappy.pdf')->generateFromHtml($html,$pdfFolder.'devis-'.$devis->getNumero().'.pdf');
+        $this->get('knp_snappy.pdf')->generateFromHtml($html,$pdfFolder.'devis-'.$devis->getNumero().'.pdf',array(
+            'footer-font-size'=>10,
+            'footer-left'=>utf8_decode('SARL au capital de 10000euros SIRET 484 494 570 000 27 APE 4391 A   TVA FR 264 844 945 70'),
+            'footer-right'=>utf8_decode('Page [page] sur [topage]')
+        ));
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject("Toiture Poitevines Devis n°".$devis->getNumero().' '.$devis->getClient()->getNom().' '.$devis->getClient()->getPrenom())
+            ->setFrom('matteo-peronnet@hotmail.fr')
+            ->setTo('lvm.peronnet@orange.fr')
+            ->setBody("Bonjour ".$devis->getClient()->getPrenom()." ".$devis->getClient()->getNom().", vous trouverez ci-joint le devis en PDF. Pour plus d'information merci de me contacter.<br/>
+                <strong>Toitures Poitevines</strong> <br/>
+                <strong>Co-gérants :</strong> Pascal JOUSSEAUME - Fabrice TRABLEAU <br/>
+                <strong>Siège :</strong> 10 allée René Caillié 86 000 POITIERS <br/>
+                <strong>TEL :</strong> 05.49.11.94.42 ou 06.72.42.55.92",'text/html')
+            ->attach(\Swift_Attachment::fromPath(__DIR__.'../../../../web/uploads/Devis/'.'devis-'.$devis->getNumero().'.pdf'), "application/octet-stream");
+        $this->get('mailer')->send($message);
 
-        $this->get('knp_snappy.pdf')->getOutputFromHtml($html,array(
-                'footer-font-size'=>10,
-                'footer-left'=>utf8_decode('SARL au capital de 10000euros SIRET 484 494 570 000 27 APE 4391 A   TVA FR 264 844 945 70'),
-                'footer-right'=>utf8_decode('Page [page] sur [topage]')
-            ));
-        return $this->redirectToRoute('index');
+        return $this->redirectToRoute('devis_view',array('id'=>$devis->getId()));
 
     }
 
@@ -243,16 +257,22 @@ class DevisController extends Controller
 
     /**
      * @Route("/devis/{id}/delete", name="devis_delete")
-     * @Method("DELETE")
+     * @Method({"DELETE","GET"})
      */
     public function deleteDevisAction(Request $request, Devis $devis)
     {
-        $form = $this->createDeleteFormProduit($devis);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($request->isMethod("GET")){
             $em = $this->getDoctrine()->getManager();
             $em->remove($devis);
             $em->flush($devis);
+        }elseif ($request->isMethod("DELETE")) {
+            $form = $this->createDeleteFormPr;oduit($devis);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($devis);
+                $em->flush($devis);
+            }
         }
         return $this->redirectToRoute('devis_index');
     }
@@ -272,6 +292,39 @@ class DevisController extends Controller
             'devis'=>$devis,
             'form_devis'=>$form_devis->createView(),
             'form_ligne_devis'=>$form_ligne_devis->createView()
+        ));
+    }
+
+    /**
+     * @Route("devis/{id}/view",name="devis_view")
+     * @Method({"GET","POST"})
+     */
+    public function showDevisAction(Devis $devis,Request $request)
+    {
+        $devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:Devis')->find($devis);
+        $ligne_devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:LigneDevis')->getSortLigneDevisOfDevis($devis);
+        $form_email = $this->createFormBuilder()
+            ->add('envoiSecretaire', CheckboxType::class, array(
+                'mapped'=>false,
+                'label'=>false,
+                'required'=>false
+            ))
+            ->add('envoiClient', CheckboxType::class, array(
+                'mapped'=>false,
+                'label'=>false,
+                'required'=>false
+            ))
+            ->add('submit',SubmitType::class,array('label'=>false))->getForm();
+
+        $form_email->handleRequest($request);
+        if($form_email->isSubmitted()){
+
+        }
+
+        return $this->render('BackOfficeBundle:Devis:viewDevis.html.twig',array(
+            'devis'=>$devis,
+            'ligne_devis'=>$ligne_devis,
+            'form_email'=>$form_email->createView()
         ));
     }
 }

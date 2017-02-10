@@ -1,0 +1,244 @@
+{% extends "BackOfficeBundle:Layout:layout.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset("template/datatables.net-bs/css/dataTables.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") }}" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="{{ asset("template/pnotify/dist/pnotify.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/pnotify/dist/pnotify.buttons.css") }}" rel="stylesheet">
+    <link href="{{ asset("template/pnotify/dist/pnotify.nonblock.css") }}" rel="stylesheet">
+    <style type="text/css">
+       .text-center{
+        text-align: center;
+       }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <div class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    {% include "BackOfficeBundle:Layout:menu.html.twig" %}
+                </div>
+                <div class="top_nav">
+                    {% include "BackOfficeBundle:Layout:top-bar.html.twig" %}
+                </div>
+                <!-- page content -->
+        <!-- page content -->
+        <div class="right_col" role="main" style="min-height: 1054px;">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>DEVIS</h3>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Détail Devis</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                                          <i class="fa fa-file-text"></i> Devis n°{{ devis.numero }}.
+                                          <small class="pull-right">Date: {{ devis.date| date("d") }}-{{ devis.date| date("m") }}-{{ devis.date| date("y") }}</small><br/>
+                                          <a href="{{ app.request.getBaseURL() }}/devis/{{ devis.id }}/edit"><button class="btn btn-success pull-right" style="margin-right: 5px;"><i class="fa fa-edit"></i> Modifier Devis</button></a>
+                                          <a href="{{ app.request.getBaseURL() }}/devis/{{ devis.id }}/delete" onclick= 'return confirm("Es-tu sur de vouloir supprimer le devis ?")'><button class="btn btn-danger pull-right" style="margin-right: 5px;"><i class="fa fa-remove"></i> Supprimer Devis</button></a>
+                          </h1>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- info row -->
+                      <div class="row invoice-info">
+                        <div class="col-sm-6 invoice-col">
+
+                          <address>
+                                          <strong>Entreprise : {{ devis.entreprise.nom }}</strong>
+                                          <br>Co-gérants : {{ devis.entreprise.coGerants }}
+                                          <br>Siège : {{ devis.entreprise.siege }}
+                                          <br>TEL : {{ devis.entreprise.telephone }}
+                                      </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6 invoice-col">
+                          <address>
+                                          <strong>Client : {{ devis.client.nom }} {{ devis.client.prenom }}</strong>
+                                          <br>Adresse : {{ devis.client.adresse }}
+                                          <br>{{ devis.client.codePostal }} {{ devis.client.ville }}
+                                          <br>Email : {{ devis.client.email }}
+                                          <br>Téléphone : {{ devis.client.telephone }}
+                                      </address>
+                        </div>
+                      </div>
+                      <!-- /.row -->
+                      <p><strong>Chantier : </strong>{{ devis.chantier }}</p>
+                      <!-- Table row -->
+                      <div class="row">
+                        <div class="col-xs-12 table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Désignation</th>
+                                <th class="text-center">Unité</th>
+                                <th class="text-center">Quantité</th>
+                                <th class="text-center">Prix HT</th>
+                                <th class="text-center">Pvt HT</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% set CategorieNom = null %}
+                                {% for laLigneDevis in ligne_devis %}
+                                    {% if loop.first %}
+                                        {% set CategorieNom = laLigneDevis.produit.categorie.nom %}
+                                        <tr>
+                                            <td class="title-categorie" colspan="5"><strong>{{ laLigneDevis.produit.categorie.nom }}</strong></td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if CategorieNom == laLigneDevis.produit.categorie.nom %}
+                                        <tr>
+                                            <td>{{ laLigneDevis.produit.nom }}</td>
+                                            <td class="text-center">{{ laLigneDevis.produit.unite }}</td>
+                                            <td class="text-center">{{ laLigneDevis.quantite }}</td>
+                                            <td class="text-center">{{ laLigneDevis.produit.prixHT }}€</td>
+                                            <td class="text-center">{{ laLigneDevis.PvtHT }}€</td>
+                                        </tr>
+                                     {% else %}
+                                         {% set CategorieNom = laLigneDevis.produit.categorie.nom %}
+                                         <tr>
+                                             <td class="title-categorie" colspan="5"><strong>{{ laLigneDevis.produit.categorie.nom }}</strong></td>
+                                         </tr>
+                                         <tr>
+                                             <td>{{ laLigneDevis.produit.nom }}</td>
+                                             <td class="text-center">{{ laLigneDevis.produit.unite }}</td>
+                                             <td class="text-center">{{ laLigneDevis.quantite }}</td>
+                                             <td class="text-center">{{ laLigneDevis.produit.prixHT }}€</td>
+                                             <td class="text-center">{{ laLigneDevis.PvtHT }}€</td>
+                                         </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-xs-6">
+                          <p class="lead">Envoyer Email</p>
+                              {{ form_start(form_email,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Envoi Secrétaire
+                                    </label>
+                                    <div class="checkbox">
+                                        <label class="">
+                                          <div class="icheckbox_flat-green checked" style="position: relative;">
+                                              {{ form_row(form_email.envoiSecretaire,{ 'attr': {'class': 'flat'} }) }}
+                                        </div>
+                                        </label>
+                                    </div>
+                                 </div>
+                                 <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Envoi Client
+                                    </label>
+                                    <div class="checkbox">
+                                        <label class="">
+                                          <div class="icheckbox_flat-green checked" style="position: relative;">
+                                              {{ form_row(form_email.envoiClient,{ 'attr': {'class': 'flat'} }) }}
+                                        </div>
+                                        </label>
+                                    </div>
+                                 </div>
+                                 <div class="item form-group">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                                    </label>
+                                    <div class="checkbox">
+                                        <label class="">
+                                          <div class="icheckbox_flat-green checked" style="position: relative;">
+                                              {{ form_row(form_email.submit,{ 'attr': {'class': 'btn btn-primary'},'label':'Envoyer' }) }}
+                                        </div>
+                                        </label>
+                                    </div>
+                                 </div>
+                        </form>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-6">
+                          <p class="lead">TOTAL</p>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <th style="width:50%">SOUS-TOTAL :</th>
+                                  <td>{{ devis.prixHT }}€</td>
+                                </tr>
+                                <tr>
+                                  <th>TVA {{ devis.tva }}%</th>
+                                  <td>{{ (devis.tva/100)*devis.prixHT }}€</td>
+                                </tr>
+                                <tr>
+                                  <th>Total TTC:</th>
+                                  <td>{{ devis.prixTTC }}€</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- this row will not appear when printing -->
+                      <div class="row no-print">
+                        <div class="col-xs-12">
+                            <a href="{{ asset('uploads/devis/devis-'~devis.numero~'.pdf') }}" target="_blank"><button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Voir PDF</button></a>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Page Content -->
+
+    <!-- footer content -->
+    <footer>
+        <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- PNotify -->
+    <script src="{{ asset('template/pnotify/dist/pnotify.js') }}"></script>
+    <script src="{{ asset('template/pnotify/dist/pnotify.buttons.js') }}"></script>
+    <script src="{{ asset('template/pnotify/dist/pnotify.nonblock.js') }}"></script>
+
+
+{% endblock %}

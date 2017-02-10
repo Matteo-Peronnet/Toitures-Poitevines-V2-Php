@@ -238,8 +238,8 @@
                                                 <td id="table-prix-ht">{{ devis.prixHT }}€</td>
                                              </tr>
                                              <tr>
-                                                <th id="table-tva">TVA</th>
-                                                <td id="table-prix-tva">0€</td>
+                                                <th id="table-tva">TVA {{ devis.tva }}% :</th>
+                                                <td id="table-prix-tva">{{ (devis.prixHT*devis.tva)/100 }}</td>
                                              </tr>
                                              <tr>
                                                 <th>Total TTC:</th>

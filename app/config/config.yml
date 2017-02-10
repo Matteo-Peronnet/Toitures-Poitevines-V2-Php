@@ -67,7 +67,9 @@ swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
     username:  "%mailer_user%"
+    port:      "%mailer_port%"
     password:  "%mailer_password%"
+    encryption:  "%mailer_encryption%"
     spool:     { type: memory }
 
 services:
@@ -81,3 +83,5 @@ knp_snappy:
         enabled:    true
         binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
         options:    []
+web_profiler:
+    intercept_redirects: true

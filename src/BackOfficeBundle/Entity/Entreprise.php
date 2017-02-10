@@ -38,6 +38,13 @@ class Entreprise
     /**
      * @var string
      *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="telephone", type="string", length=255)
      */
     private $telephone;
@@ -295,4 +302,29 @@ class Entreprise
     {
         return $this->devis;
     }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param Devis $devis
+     */
+    public function setDevis($devis)
+    {
+        $this->devis = $devis;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
 }

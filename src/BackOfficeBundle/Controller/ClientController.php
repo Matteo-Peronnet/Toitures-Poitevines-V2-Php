@@ -106,7 +106,10 @@ class ClientController extends Controller
      */
     public function profileAction(Request $request,Client $client)
     {
+        $devis = $devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:Devis')->findBy(array('client'=>$client->getId()),['numero'=>'desc']);
+
         return $this->render('BackOfficeBundle:Client:profileClient.html.twig',array(
+            'devis'=>$devis,
             'client'=>$client,
         ));
     }

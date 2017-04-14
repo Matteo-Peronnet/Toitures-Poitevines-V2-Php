@@ -14,13 +14,13 @@ class LoadEntrepriseData extends AbstractFixture implements OrderedFixtureInterf
     {
         $toituresPoitevine = new Entreprise();
         $toituresPoitevine->setNom("Toitures Poitevines");
-        $toituresPoitevine->setCoGerants("Pascal JOUSSEAUME - Fabrice TRABLEAU");
-        $toituresPoitevine->setSarl("SARL au capital de 10000€");
-        $toituresPoitevine->setSiret("SIRET 484 494 570 000 27 APE 4391 A ");
-        $toituresPoitevine->setTva("TVA FR 264 844 945 70");
-        $toituresPoitevine->setSiege("10 allée René Caillié 86 000 POITIERS");
-        $toituresPoitevine->setTelephone("05.49.11.94.42 ou 06.72.42.55.92");
-        $toituresPoitevine->setEmail("lvm.peronnet@orange.fr");
+        $toituresPoitevine->setCoGerants("Pxxxx Jxxxxxxx - Fxxxxxxx Txxxxxx");
+        $toituresPoitevine->setSarl("SARL au capital de xxxxxxx€");
+        $toituresPoitevine->setSiret("SIRET xxx xxx xxx xxx xx APE xxxx x");
+        $toituresPoitevine->setTva("TVA FR xxx xxx xxx xx");
+        $toituresPoitevine->setSiege("xx allée xxxx Xxxx XX XXX XXXXXX");
+        $toituresPoitevine->setTelephone("xx.xx.xx.xx.xx ou xx.xx.xx.xx.xx");
+        $toituresPoitevine->setEmail("testemail@yopmail.com");
 
         $manager->persist($toituresPoitevine);
         $manager->flush();

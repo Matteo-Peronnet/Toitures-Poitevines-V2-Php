@@ -30,7 +30,6 @@
                     <ul class="nav child_menu">
                         <li><a href="{{ app.request.getBaseURL() }}/devis/new">Créer un devis</a></li>
                         <li><a href="{{ app.request.getBaseURL() }}/devis/">Rechercher un devis</a></li>
-                        <li><a href="#">Envoyer un devis</a></li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-users"></i> Client <span class="fa fa-chevron-down"></span></a>
@@ -47,7 +46,7 @@
                         <li><a href="{{ app.request.getBaseURL() }}/produit/"><span class="fa fa-cube"></span>Rechercher un produit</a></li>
                     </ul>
                 </li>
-                <li><a  href="#"><i class="fa fa-wrench"></i> Parametres</a></li>
+                <li><a  href="{{ app.request.getBaseURL() }}/parametres"><i class="fa fa-wrench"></i> Parametres</a></li>
             </ul>
         </div>
     </div>

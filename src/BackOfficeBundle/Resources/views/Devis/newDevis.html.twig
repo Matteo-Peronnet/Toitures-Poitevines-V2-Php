@@ -475,8 +475,8 @@
             var information = document.getElementById("backofficebundle_devis_information").value;
             var client = $("#{{ form_devis.client.vars.id }}").val();
             var entreprise = $("#{{ form_devis.entreprise.vars.id }}").val();
-            var envoisecretaire = document.getElementById("backofficebundle_devis_envoiSecretaire").value;
-            var envoiclient = document.getElementById("backofficebundle_devis_envoiClient").value;
+            var envoisecretaire = document.getElementById("backofficebundle_devis_envoiSecretaire").checked;
+            var envoiclient = document.getElementById("backofficebundle_devis_envoiClient").checked;
             var tva = $('#backofficebundle_devis_tva option:selected').val();
             var devis = $('[id^="form-id-"]');
             devis = devis.attr('id');
@@ -498,11 +498,12 @@
                   tva: tva
               },
               success: function(){
-                  var url = '{{  path('devis_generation',{'id': devis.id})  }}';
+                  var url = '{{  path('devis_generation',{'id': devis.id,'client':"envoiclient",'secretaire':"envoisecretaire"})  }}';
                   url = url.replace("region_id", this.value);
+                  url = url.replace("envoiclient", envoiclient);
+                  url = url.replace("envoisecretaire", envoisecretaire);
+                  console.log(url);
                   window.location.assign(url);
-                   //window.location.assign(location.href.replace("devis/new","devis/generation/"+devis));
-                   {#window.location.assign({{ path('devis_generation',{'id': devis}) }});#}
               }
              });
         }

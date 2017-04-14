@@ -185,10 +185,10 @@ class DevisController extends Controller
     }
 
     /**
-     * @Route("devis/generation/{id}",name="devis_generation")
+     * @Route("devis/generation/{id}/{client}/{secretaire}",name="devis_generation")
      * @Method("GET")
      */
-    public function generationDevisAction(Devis $devis)
+    public function generationDevisAction(Devis $devis,$client,$secretaire)
     {
         $devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:Devis')->find($devis);
         $ligne_devis = $this->getDoctrine()->getManager()->getRepository('BackOfficeBundle:LigneDevis')->getSortLigneDevisOfDevis($devis);
@@ -204,22 +204,37 @@ class DevisController extends Controller
         }
         $this->get('knp_snappy.pdf')->generateFromHtml($html,$pdfFolder.'devis-'.$devis->getNumero().'.pdf',array(
             'footer-font-size'=>10,
-            'footer-left'=>utf8_decode('SARL au capital de 10000euros SIRET 484 494 570 000 27 APE 4391 A   TVA FR 264 844 945 70'),
+            'footer-left'=>utf8_decode('SARL au capital de XXXXXeuros SIRET XXXXXXXXXXX APE XXXX   TVA FR XXXXXXXXX'),
             'footer-right'=>utf8_decode('Page [page] sur [topage]')
         ));
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject("Toiture Poitevines Devis n°".$devis->getNumero().' '.$devis->getClient()->getNom().' '.$devis->getClient()->getPrenom())
-            ->setFrom('matteo-peronnet@hotmail.fr')
-            ->setTo('lvm.peronnet@orange.fr')
-            ->setBody("Bonjour ".$devis->getClient()->getPrenom()." ".$devis->getClient()->getNom().", vous trouverez ci-joint le devis en PDF. Pour plus d'information merci de me contacter.<br/>
+        if($client) {
+            $message_client = \Swift_Message::newInstance()
+                ->setSubject("Toiture Poitevines Devis n°" . $devis->getNumero() . ' ' . $devis->getClient()->getNom() . ' ' . $devis->getClient()->getPrenom())
+                ->setFrom($devis->getEntreprise()->getEmail())
+                ->setTo($devis->getClient()->getEmail())
+                ->setBody("Bonjour " . $devis->getClient()->getPrenom() . " " . $devis->getClient()->getNom() . ", vous trouverez ci-joint le devis en PDF. Pour plus d'information merci de me contacter.<br/>
                 <strong>Toitures Poitevines</strong> <br/>
-                <strong>Co-gérants :</strong> Pascal JOUSSEAUME - Fabrice TRABLEAU <br/>
-                <strong>Siège :</strong> 10 allée René Caillié 86 000 POITIERS <br/>
-                <strong>TEL :</strong> 05.49.11.94.42 ou 06.72.42.55.92",'text/html')
-            ->attach(\Swift_Attachment::fromPath(__DIR__.'../../../../web/uploads/Devis/'.'devis-'.$devis->getNumero().'.pdf'), "application/octet-stream");
-        $this->get('mailer')->send($message);
+                <strong>Co-gérants :</strong> Pxxxx Jxxxxxxx - Fxxxxxxx Txxxxxx <br/>
+                <strong>Siège :</strong> xx allée xxxx Xxxx XX XXX XXXXXX <br/>
+                <strong>TEL :</strong> xx.xx.xx.xx.xx ou xx.xx.xx.xx.xx", 'text/html')
+                ->attach(\Swift_Attachment::fromPath(__DIR__ . '../../../../web/uploads/Devis/' . 'devis-' . $devis->getNumero() . '.pdf'), "application/octet-stream");
+            $this->get('mailer')->send($message_client);
+        }
+        if($secretaire){
+            $message_secretaire = \Swift_Message::newInstance()
+                ->setSubject("Toiture Poitevines Devis n°" . $devis->getNumero() . ' ' . $devis->getClient()->getNom() . ' ' . $devis->getClient()->getPrenom())
+                ->setFrom($devis->getEntreprise()->getEmail())
+                ->setTo($devis->getEntreprise()->getEmail())
+                ->setBody("Bonjour , vous trouverez ci-joint le devis en PDF. Pour plus d'information merci de me contacter.<br/>
+                <strong>Toitures Poitevines</strong> <br/>
+                <strong>Co-gérants :</strong> Pxxxx Jxxxxxxx - Fxxxxxxx Txxxxxx <br/>
+                <strong>Siège :</strong> xx allée xxxx Xxxx XX XXX XXXXXX <br/>
+                <strong>TEL :</strong> xx.xx.xx.xx.xx ou xx.xx.xx.xx.xx", 'text/html')
 
+                ->attach(\Swift_Attachment::fromPath(__DIR__ . '../../../../web/uploads/Devis/' . 'devis-' . $devis->getNumero() . '.pdf'), "application/octet-stream");
+            $this->get('mailer')->send($message_secretaire);
+        }
         return $this->redirectToRoute('devis_view',array('id'=>$devis->getId()));
 
     }
@@ -266,7 +281,7 @@ class DevisController extends Controller
             $em->remove($devis);
             $em->flush($devis);
         }elseif ($request->isMethod("DELETE")) {
-            $form = $this->createDeleteFormPr;oduit($devis);
+            $form = $this->createDeleteFormProduit($devis);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
@@ -318,7 +333,35 @@ class DevisController extends Controller
 
         $form_email->handleRequest($request);
         if($form_email->isSubmitted()){
-
+            $secretaire = $form_email["envoiSecretaire"]->getData();
+            $client = $form_email["envoiClient"]->getData();
+            if($client) {
+                $message_client = \Swift_Message::newInstance()
+                    ->setSubject("Toiture Poitevines Devis n°" . $devis->getNumero() . ' ' . $devis->getClient()->getNom() . ' ' . $devis->getClient()->getPrenom())
+                    ->setFrom($devis->getEntreprise()->getEmail())
+                    ->setTo($devis->getClient()->getEmail())
+                    ->setBody("Bonjour " . $devis->getClient()->getPrenom() . " " . $devis->getClient()->getNom() . ", vous trouverez ci-joint le devis en PDF. Pour plus d'information merci de me contacter.<br/>
+                <strong>Toitures Poitevines</strong> <br/>
+                <strong>Co-gérants :</strong> XXXXXX XXXXXXXXXX - XXXXXXXX XXXX <br/>
+                <strong>Siège :</strong> xx allée xxxx Xxxx XX XXX XXXXXX <br/>
+                <strong>TEL :</strong> xx.xx.xx.xx.xx ou xx.xx.xx.xx.xx", 'text/html')
+                    ->attach(\Swift_Attachment::fromPath(__DIR__ . '../../../../web/uploads/Devis/' . 'devis-' . $devis->getNumero() . '.pdf'), "application/octet-stream");
+                $this->get('mailer')->send($message_client);
+            }
+            if($secretaire) {
+                $message_secretaire = \Swift_Message::newInstance()
+                    ->setSubject("Toiture Poitevines Devis n°" . $devis->getNumero() . ' ' . $devis->getClient()->getNom() . ' ' . $devis->getClient()->getPrenom())
+                    ->setFrom($devis->getEntreprise()->getEmail())
+                    ->setTo($devis->getEntreprise()->getEmail())
+                    ->setBody("Bonjour , vous trouverez ci-joint le devis en PDF. Pour plus d'information merci de me contacter.<br/>
+                <strong>Toitures Poitevines</strong> <br/>
+                <strong>Co-gérants :</strong> Pxxxx Jxxxxxxx - Fxxxxxxx Txxxxxx <br/>
+                <strong>Siège :</strong> xx allée xxxx Xxxx XX XXX XXXXXX <br/>
+                <strong>TEL :</strong> xx.xx.xx.xx.xx ou xx.xx.xx.xx.xx", 'text/html')
+                    ->attach(\Swift_Attachment::fromPath(__DIR__ . '../../../../web/uploads/Devis/' . 'devis-' . $devis->getNumero() . '.pdf'), "application/octet-stream");
+                $this->get('mailer')->send($message_secretaire);
+            }
+            return $this->redirectToRoute('devis_view',array('id'=>$devis->getId()));
         }
 
         return $this->render('BackOfficeBundle:Devis:viewDevis.html.twig',array(
